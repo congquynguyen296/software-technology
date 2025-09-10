@@ -63,7 +63,7 @@ export const createProduct = async (req: Request, res: Response) => {
     // Generate search keywords from name, brand, category, and tags
     const searchKeywords: string[] = [];
     if (productData.name) {
-      searchKeywords.push(...productData.name.toLowerCase().split(' '));
+      searchKeywords.push(...productData.name.toLowerCase().split(" "));
     }
     if (productData.brand) {
       searchKeywords.push(productData.brand.toLowerCase());
@@ -72,11 +72,13 @@ export const createProduct = async (req: Request, res: Response) => {
       searchKeywords.push(productData.category.toLowerCase());
     }
     if (productData.tags) {
-      searchKeywords.push(...productData.tags.map(tag => tag.toLowerCase()));
+      searchKeywords.push(...productData.tags.map((tag) => tag.toLowerCase()));
     }
-    
+
     // Remove duplicates and empty strings
-    productData.searchKeywords = [...new Set(searchKeywords.filter(keyword => keyword.trim()))];
+    productData.searchKeywords = [
+      ...new Set(searchKeywords.filter((keyword) => keyword.trim())),
+    ];
 
     const product = new Product(productData);
     await product.save();
